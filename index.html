@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق مهندسنا</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6C4CCF',
+                        darkPurple: '#241B4B',
+                        lightPurple: '#E8DEFF',
+                        bgApp: '#F8F6FF',
+                        mainText: '#211B35',
+                        secondaryText: '#77718A',
+                        easyGreen: '#7BC67B',
+                        mediumOrange: '#F3A45B',
+                        hardRed: '#E87575',
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #120e26;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center py-6 px-4">
+
+    <!-- Screen Switcher Bar for VS Code Preview -->
+    <div class="mb-6 flex flex-wrap gap-2 justify-center max-w-md bg-[#1e1738] p-3 rounded-2xl border border-[#3b2d6e] shadow-lg z-50">
+        <button onclick="switchScreen(1)" id="btn-1" class="text-xs px-3 py-1.5 rounded-xl font-medium bg-primary text-white transition">1. البداية</button>
+        <button onclick="switchScreen(2)" id="btn-2" class="text-xs px-3 py-1.5 rounded-xl font-medium bg-[#2d2354] text-secondaryText hover:text-white transition">2. الرئيسية</button>
+        <button onclick="switchScreen(3)" id="btn-3" class="text-xs px-3 py-1.5 rounded-xl font-medium bg-[#2d2354] text-secondaryText hover:text-white transition">3. التحديات</button>
+        <button onclick="switchScreen(4)" id="btn-4" class="text-xs px-3 py-1.5 rounded-xl font-medium bg-[#2d2354] text-secondaryText hover:text-white transition">4. التفاصيل</button>
+        <button onclick="switchScreen(5)" id="btn-5" class="text-xs px-3 py-1.5 rounded-xl font-medium bg-[#2d2354] text-secondaryText hover:text-white transition">5. الحل</button>
+        <button onclick="switchScreen(6)" id="btn-6" class="text-xs px-3 py-1.5 rounded-xl font-medium bg-[#2d2354] text-secondaryText hover:text-white transition">6. الإنجازات</button>
+        <button onclick="switchScreen(7)" id="btn-7" class="text-xs px-3 py-1.5 rounded-xl font-medium bg-[#2d2354] text-secondaryText hover:text-white transition">7. المتصدرين</button>
+        <button onclick="switchScreen(8)" id="btn-8" class="text-xs px-3 py-1.5 rounded-xl font-medium bg-[#2d2354] text-secondaryText hover:text-white transition">8. الحساب</button>
+    </div>
+
+    <!-- iPhone 15 Pro Frame -->
+    <div class="relative w-[393px] h-[852px] bg-black rounded-[55px] shadow-[0_25px_60px_-15px_rgba(108,76,207,0.4)] border-[10px] border-[#2c2c35] overflow-hidden flex flex-col shrink-0">
+        
+        <!-- iPhone Dynamic Island -->
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-7 bg-black rounded-b-2xl z-50 flex items-center justify-center">
+            <div class="w-3 h-3 rounded-full bg-[#111] mr-3"></div>
+            <div class="w-2.5 h-2.5 rounded-full bg-[#080812]"></div>
+        </div>
+
+        <!-- APP CONTAINER -->
+        <div id="app-container" class="relative w-full h-full overflow-y-auto no-scrollbar bg-bgApp flex flex-col pt-8">
+
+            <!-- ================= SCREEN 1: ONBOARDING ================= -->
+            <div id="screen-1" class="screen-content flex flex-col justify-between h-full bg-darkPurple text-white p-6 relative overflow-hidden">
+                <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-primary opacity-20 blur-3xl pointer-events-none"></div>
+                <div class="absolute bottom-10 -left-20 w-72 h-72 rounded-full bg-primary opacity-15 blur-3xl pointer-events-none"></div>
+
+                <div class="flex flex-col items-center pt-16 z-10">
+                    <div class="w-24 h-24 rounded-3xl bg-primary/20 border border-primary/40 flex items-center justify-center shadow-lg shadow-primary/30 mb-8">
+                        <svg class="w-12 h-12 text-lightPurple" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.121 2.121 0 0114.4 23.85l-5.83-5.83m1.06-8.5a6.364 6.364 0 119 9 6.364 6.364 0 01-9-9zm0 0l-5.657-5.657a2.121 2.121 0 10-3 3l5.657 5.657"></path>
+                        </svg>
+                    </div>
+                    <h1 class="text-4xl font-extrabold tracking-tight mb-2 text-white">مهندسنا</h1>
+                    <p class="text-lightPurple text-lg font-medium tracking-wide mb-4">تعلم • طبق • حل</p>
+                    <p class="text-[#D8D0EA] text-center text-sm px-6 max-w-xs leading-relaxed">
+                        اربط معرفتك الهندسية بالمشكلات الواقعية
+                    </p>
+                </div>
+
+                <div class="pb-12 z-10">
+                    <button onclick="switchScreen(2)" class="w-full py-4 bg-[#8B6BE8] hover:bg-primary text-white font-bold rounded-[28px] shadow-lg shadow-primary/40 transition flex items-center justify-center gap-2 text-base">
+                        <span>ابدأ الآن</span>
+                        <span class="text-xl">←</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= SCREEN 2: HOME ================= -->
+            <div id="screen-2" class="screen-content hidden flex-col justify-between min-h-full pb-20">
+                <div class="p-5 flex-1">
+                    <div class="flex justify-between items-center mb-6 pt-2">
+                        <div>
+                            <h2 class="text-xl font-bold text-mainText">مرحباً بك، مهندسنا 👋</h2>
+                            <p class="text-secondaryText text-sm mt-0.5">جاهز لتحدي جديد؟</p>
+                        </div>
+                        <div onclick="switchScreen(8)" class="w-11 h-11 rounded-full bg-lightPurple border-2 border-primary overflow-hidden shadow-sm flex items-center justify-center cursor-pointer">
+                            <span class="text-primary font-bold text-sm">غ</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-primary rounded-[22px] p-6 text-white shadow-xl shadow-primary/25 mb-6 relative overflow-hidden">
+                        <div class="absolute -left-10 -bottom-10 w-36 h-36 bg-white/10 rounded-full blur-2xl"></div>
+                        <h3 class="text-xl font-bold mb-2">تحديات هندسية من واقعنا</h3>
+                        <p class="text-lightPurple text-sm mb-5 leading-relaxed">حوّل ما تعلمته إلى حل عملي</p>
+                        <button onclick="switchScreen(3)" class="bg-lightPurple text-[#4E369A] font-bold text-xs px-4 py-2.5 rounded-xl shadow-sm hover:bg-white transition inline-flex items-center gap-1.5">
+                            <span>استكشف التحديات</span>
+                            <span>→</span>
+                        </button>
+                    </div>
+
+                    <div class="mb-6">
+                        <h3 class="text-base font-bold text-mainText mb-3">تخصصاتك</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div onclick="switchScreen(3)" class="bg-white p-3.5 rounded-2xl border border-primary/10 shadow-sm flex items-center gap-3 cursor-pointer hover:border-primary/40 transition">
+                                <div class="w-10 h-10 rounded-xl bg-lightPurple flex items-center justify-center text-primary font-bold">🏗️</div>
+                                <span class="text-xs font-bold text-mainText">الهندسة المدنية</span>
+                            </div>
+                            <div onclick="switchScreen(3)" class="bg-white p-3.5 rounded-2xl border border-primary/10 shadow-sm flex items-center gap-3 cursor-pointer hover:border-primary/40 transition">
+                                <div class="w-10 h-10 rounded-xl bg-lightPurple flex items-center justify-center text-primary font-bold">⚙️</div>
+                                <span class="text-xs font-bold text-mainText">الهندسة الميكانيكية</span>
+                            </div>
+                            <div onclick="switchScreen(3)" class="bg-white p-3.5 rounded-2xl border border-primary/10 shadow-sm flex items-center gap-3 cursor-pointer hover:border-primary/40 transition">
+                                <div class="w-10 h-10 rounded-xl bg-lightPurple flex items-center justify-center text-primary font-bold">⚡</div>
+                                <span class="text-xs font-bold text-mainText">الهندسة الكهربائية</span>
+                            </div>
+                            <div onclick="switchScreen(3)" class="bg-white p-3.5 rounded-2xl border border-primary/10 shadow-sm flex items-center gap-3 cursor-pointer hover:border-primary/40 transition">
+                                <div class="w-10 h-10 rounded-xl bg-lightPurple flex items-center justify-center text-primary font-bold">💻</div>
+                                <span class="text-xs font-bold text-mainText">الهندسة البرمجية</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h3 class="text-base font-bold text-mainText mb-3">تحدي اليوم 🔥</h3>
+                        <div onclick="switchScreen(4)" class="bg-white rounded-2xl p-4 border border-primary/15 shadow-sm cursor-pointer hover:shadow-md transition">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="bg-mediumOrange/15 text-mediumOrange text-[11px] font-bold px-2.5 py-1 rounded-lg">متوسط</span>
+                                <span class="text-xs text-secondaryText font-medium">3 أيام • 100 نقطة</span>
+                            </div>
+                            <h4 class="font-bold text-mainText text-sm leading-snug">تصميم نظام لتقليل استهلاك الطاقة في المباني</h4>
+                        </div>
+                    </div>
+                </div>
+                <div id="nav-container-2"></div>
+            </div>
+
+            <!-- ================= SCREEN 3: CHALLENGES ================= -->
+            <div id="screen-3" class="screen-content hidden flex-col justify-between min-h-full pb-20">
+                <div class="p-5 flex-1">
+                    <h2 class="text-xl font-bold text-mainText mb-4">التحديات</h2>
+
+                    <div class="relative mb-4">
+                        <input type="text" placeholder="ابحث عن تحدٍ..." class="w-full bg-white border border-primary/15 rounded-2xl py-3 px-4 pr-11 text-xs text-mainText focus:outline-none focus:border-primary shadow-sm">
+                        <span class="absolute right-4 top-3 text-secondaryText">🔍</span>
+                    </div>
+
+                    <div class="flex gap-2 overflow-x-auto no-scrollbar mb-5 pb-1">
+                        <button class="bg-primary text-white text-xs font-bold px-4 py-2 rounded-xl shadow-sm whitespace-nowrap">الكل</button>
+                        <button class="bg-lightPurple text-primary text-xs font-medium px-4 py-2 rounded-xl whitespace-nowrap">مدنية</button>
+                        <button class="bg-lightPurple text-primary text-xs font-medium px-4 py-2 rounded-xl whitespace-nowrap">ميكانيكية</button>
+                        <button class="bg-lightPurple text-primary text-xs font-medium px-4 py-2 rounded-xl whitespace-nowrap">كهربائية</button>
+                        <button class="bg-lightPurple text-primary text-xs font-medium px-4 py-2 rounded-xl whitespace-nowrap">برمجية</button>
+                    </div>
+
+                    <div class="space-y-3.5">
+                        <div onclick="switchScreen(4)" class="bg-white rounded-2xl p-4 border border-primary/10 shadow-sm cursor-pointer hover:shadow-md transition">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="bg-mediumOrange/15 text-mediumOrange text-[11px] font-bold px-2.5 py-1 rounded-lg">متوسطة</span>
+                                <span class="text-xs text-secondaryText font-medium">3 أيام • 100 نقطة</span>
+                            </div>
+                            <h4 class="font-bold text-mainText text-sm leading-snug mb-1">تصميم نظام لتقليل استهلاك الطاقة في المباني</h4>
+                            <p class="text-secondaryText text-[11px] leading-relaxed">تحسين كفاءة استهلاك الطاقة الكهربائية في المجمعات التجارية.</p>
+                        </div>
+
+                        <div onclick="switchScreen(4)" class="bg-white rounded-2xl p-4 border border-primary/10 shadow-sm cursor-pointer hover:shadow-md transition">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="bg-hardRed/15 text-hardRed text-[11px] font-bold px-2.5 py-1 rounded-lg">صعبة</span>
+                                <span class="text-xs text-secondaryText font-medium">5 أيام • 150 نقطة</span>
+                            </div>
+                            <h4 class="font-bold text-mainText text-sm leading-snug mb-1">تحليل جسر معلق وتحسين تحمله للزلازل</h4>
+                            <p class="text-secondaryText text-[11px] leading-relaxed">دراسة الإجهادات الإنشائية وتطوير نظام تخفيف الاهتزازات.</p>
+                        </div>
+
+                        <div onclick="switchScreen(4)" class="bg-white rounded-2xl p-4 border border-primary/10 shadow-sm cursor-pointer hover:shadow-md transition">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="bg-easyGreen/15 text-easyGreen text-[11px] font-bold px-2.5 py-1 rounded-lg">سهلة</span>
+                                <span class="text-xs text-secondaryText font-medium">2 أيام • 50 نقطة</span>
+                            </div>
+                            <h4 class="font-bold text-mainText text-sm leading-snug mb-1">تصميم شبكة صرف مياه مستدامة للمدينة</h4>
+                            <p class="text-secondaryText text-[11px] leading-relaxed">تخطيط مسارات التصريف وإعادة تدوير المياه الرمادية.</p>
+                        </div>
+
+                        <div onclick="switchScreen(4)" class="bg-white rounded-2xl p-4 border border-primary/10 shadow-sm cursor-pointer hover:shadow-md transition">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="bg-mediumOrange/15 text-mediumOrange text-[11px] font-bold px-2.5 py-1 rounded-lg">متوسطة</span>
+                                <span class="text-xs text-secondaryText font-medium">4 أيام • 100 نقطة</span>
+                            </div>
+                            <h4 class="font-bold text-mainText text-sm leading-snug mb-1">تطوير روبوت متحرك للمهام الصناعية</h4>
+                            <p class="text-secondaryText text-[11px] leading-relaxed">برمجة مسار الحركة الآلي وتجنب العقبات في المستودعات.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="nav-container-3"></div>
+            </div>
+
+            <!-- ================= SCREEN 4: CHALLENGE DETAILS ================= -->
+            <div id="screen-4" class="screen-content hidden flex-col justify-between min-h-full pb-20">
+                <div class="p-5 flex-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <button onclick="switchScreen(3)" class="w-8 h-8 rounded-full bg-lightPurple flex items-center justify-center text-primary font-bold">←</button>
+                        <h2 class="text-lg font-bold text-mainText">تفاصيل التحدي</h2>
+                    </div>
+
+                    <h3 class="text-base font-bold text-mainText mb-3 leading-snug">تصميم نظام لتقليل استهلاك الطاقة في المباني</h3>
+
+                    <div class="w-full h-40 bg-gradient-to-tr from-darkPurple to-primary rounded-2xl mb-4 flex items-center justify-center text-white shadow-md relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10"></div>
+                        <span class="text-sm font-semibold relative z-10">🏢 نموذج هيكل المبنى الذكي</span>
+                    </div>
+
+                    <p class="text-secondaryText text-xs leading-relaxed mb-5">
+                        مع تزايد استهلاك الطاقة في المباني، مطلوب منك تصميم حل هندسي مبتكر لتقليل الاستهلاك مع الحفاظ على الراحة والتهوية المثالية.
+                    </p>
+
+                    <div class="grid grid-cols-3 gap-2.5 mb-5">
+                        <div class="bg-white p-3 rounded-2xl border border-primary/10 text-center shadow-sm">
+                            <span class="text-[10px] text-secondaryText block mb-1">مستوى الصعوبة</span>
+                            <span class="text-xs font-bold text-mediumOrange">متوسطة</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl border border-primary/10 text-center shadow-sm">
+                            <span class="text-[10px] text-secondaryText block mb-1">المدة المتوقعة</span>
+                            <span class="text-xs font-bold text-mainText">3 أيام</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl border border-primary/10 text-center shadow-sm">
+                            <span class="text-[10px] text-secondaryText block mb-1">النقاط</span>
+                            <span class="text-xs font-bold text-primary">100 نقطة</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="text-sm font-bold text-mainText mb-2.5">متطلبات التحدي</h4>
+                        <div class="space-y-2">
+                            <div class="bg-white p-3 rounded-xl border border-primary/10 flex items-center gap-3 text-xs text-mainText">
+                                <input type="checkbox" checked class="accent-primary w-4 h-4 rounded">
+                                <span>تحليل المشكلة باستخدام المفاهيم الهندسية</span>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-primary/10 flex items-center gap-3 text-xs text-mainText">
+                                <input type="checkbox" class="accent-primary w-4 h-4 rounded">
+                                <span>اقتراح حل عملي ومدعوم بالحسابات</span>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-primary/10 flex items-center gap-3 text-xs text-mainText">
+                                <input type="checkbox" class="accent-primary w-4 h-4 rounded">
+                                <span>تقديم تصميم أو نموذج للحل</span>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-primary/10 flex items-center gap-3 text-xs text-mainText">
+                                <input type="checkbox" class="accent-primary w-4 h-4 rounded">
+                                <span>شرح آلية عمل الحل</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="switchScreen(5)" class="w-full py-3.5 bg-primary hover:bg-[#5b3eb3] text-white font-bold rounded-2xl shadow-lg shadow-primary/30 transition flex items-center justify-center gap-2 text-sm mt-2">
+                        <span>ابدأ التحدي</span>
+                        <span>→</span>
+                    </button>
+                </div>
+                <div id="nav-container-4"></div>
+            </div>
+
+            <!-- ================= SCREEN 5: SOLUTION ================= -->
+            <div id="screen-5" class="screen-content hidden flex-col justify-between min-h-full pb-20">
+                <div class="p-5 flex-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <button onclick="switchScreen(4)" class="w-8 h-8 rounded-full bg-lightPurple flex items-center justify-center text-primary font-bold">←</button>
+                        <h2 class="text-lg font-bold text-mainText">حل التحدي</h2>
+                    </div>
+
+                    <div class="flex items-center justify-between mb-5 bg-white p-3 rounded-2xl border border-primary/10 text-xs font-semibold">
+                        <span class="text-primary">1 رفع الحل</span>
+                        <span class="text-secondaryText">2 مراجعة الحل</span>
+                        <span class="text-secondaryText">3 النتيجة</span>
+                    </div>
+
+                    <div class="mb-4">
+                        <h3 class="text-sm font-bold text-mainText mb-1">حلّك</h3>
+                        <p class="text-secondaryText text-[11px] mb-3">اشرح فكرتك وارفع التصميم أو الحسابات أو المشروع.</p>
+
+                        <div class="border-2 border-dashed border-primary/30 bg-white rounded-2xl p-6 text-center mb-3 cursor-pointer hover:bg-lightPurple/20 transition">
+                            <span class="text-2xl block mb-1">📁</span>
+                            <span class="text-xs font-bold text-mainText block">ارفع ملف الحل هنا</span>
+                            <span class="text-[10px] text-secondaryText">PDF أو صورة أو مشروع</span>
+                        </div>
+
+                        <button class="w-full py-2.5 bg-lightPurple text-primary font-bold rounded-xl text-xs mb-3 flex items-center justify-center gap-2">
+                            <span>📷 التقاط صورة للحل</span>
+                        </button>
+
+                        <textarea placeholder="اكتب شرح الحل..." rows="3" class="w-full bg-white border border-primary/15 rounded-2xl p-3 text-xs text-mainText focus:outline-none focus:border-primary shadow-sm resize-none mb-2"></textarea>
+                    </div>
+
+                    <button onclick="switchScreen(6)" class="w-full py-3.5 bg-primary hover:bg-[#5b3eb3] text-white font-bold rounded-2xl shadow-lg shadow-primary/30 transition flex items-center justify-center gap-2 text-sm">
+                        <span>إرسال الحل</span>
+                        <span>→</span>
+                    </button>
+                </div>
+                <div id="nav-container-5"></div>
+            </div>
+
+            <!-- ================= SCREEN 6: PROGRESS ================= -->
+            <div id="screen-6" class="screen-content hidden flex-col justify-between min-h-full pb-20">
+                <div class="p-5 flex-1">
+                    <h2 class="text-xl font-bold text-mainText mb-4">إنجازاتي</h2>
+
+                    <div class="grid grid-cols-3 gap-2.5 mb-5">
+                        <div class="bg-white p-3.5 rounded-2xl border border-primary/10 text-center shadow-sm">
+                            <span class="text-base font-extrabold text-primary block mb-0.5">1,350</span>
+                            <span class="text-[10px] text-secondaryText">نقطة إجمالية</span>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-2xl border border-primary/10 text-center shadow-sm">
+                            <span class="text-base font-extrabold text-mainText block mb-0.5">12</span>
+                            <span class="text-[10px] text-secondaryText">تحدياً مكتملًا</span>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-2xl border border-primary/10 text-center shadow-sm">
+                            <span class="text-base font-extrabold text-mediumOrange block mb-0.5">5</span>
+                            <span class="text-[10px] text-secondaryText">أسبوع متتالي</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-4 border border-primary/15 shadow-sm mb-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-secondaryText">مستواي الحالي</span>
+                            <span class="bg-primary/15 text-primary text-[11px] font-bold px-2.5 py-1 rounded-lg">مهندس متميز</span>
+                        </div>
+                        <div class="w-full bg-lightPurple h-2.5 rounded-full overflow-hidden mb-1.5">
+                            <div class="bg-primary h-full w-[85%] rounded-full"></div>
+                        </div>
+                        <span class="text-[11px] text-secondaryText block text-left font-medium">1,350 / 1,500 نقطة</span>
+                    </div>
+
+                    <div class="mb-5">
+                        <h3 class="text-sm font-bold text-mainText mb-3">مهاراتي الأكثر تطوراً</h3>
+                        <div class="space-y-3 bg-white p-4 rounded-2xl border border-primary/10 shadow-sm">
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-mainText">التحليل الهندسي</span>
+                                    <span class="text-primary">90%</span>
+                                </div>
+                                <div class="w-full bg-lightPurple h-2 rounded-full overflow-hidden">
+                                    <div class="bg-primary h-full w-[90%] rounded-full"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-mainText">التصميم والابتكار</span>
+                                    <span class="text-primary">80%</span>
+                                </div>
+                                <div class="w-full bg-lightPurple h-2 rounded-full overflow-hidden">
+                                    <div class="bg-primary h-full w-[80%] rounded-full"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs font-semibold mb-1">
+                                    <span class="text-mainText">حل المشكلات</span>
+                                    <span class="text-primary">75%</span>
+                                </div>
+                                <div class="w-full bg-lightPurple h-2 rounded-full overflow-hidden">
+                                    <div class="bg-primary h-full w-[75%] rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-bold text-mainText mb-3">آخر نشاط</h3>
+                        <div class="space-y-2.5">
+                            <div class="bg-white p-3.5 rounded-2xl border border-primary/10 shadow-sm flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-bold text-mainText text-xs mb-0.5">تصميم نظام لتقليل استهلاك الطاقة</h4>
+                                    <span class="text-[10px] text-secondaryText">تم الانتهاء بنجاح • +100 نقطة</span>
+                                </div>
+                                <div class="w-7 h-7 rounded-full bg-easyGreen/20 text-easyGreen flex items-center justify-center font-bold text-xs">✓</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="nav-container-6"></div>
+            </div>
+
+            <!-- ================= SCREEN 7: LEADERBOARD ================= -->
+            <div id="screen-7" class="screen-content hidden flex-col justify-between min-h-full pb-20">
+                <div class="p-5 flex-1">
+                    <h2 class="text-xl font-bold text-mainText mb-4">لوحة المتصدرين 🏆</h2>
+
+                    <div class="flex bg-white p-1 rounded-2xl border border-primary/15 mb-4 shadow-sm">
+                        <button class="flex-1 py-2 bg-primary text-white rounded-xl text-xs font-bold transition">هذا الشهر</button>
+                        <button class="flex-1 py-2 text-secondaryText rounded-xl text-xs font-medium transition">كل الوقت</button>
+                    </div>
+
+                    <div class="space-y-2.5 mb-4">
+                        <div class="bg-amber-50 border border-amber-200 p-3.5 rounded-2xl flex items-center justify-between shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <span class="w-6 text-center font-extrabold text-amber-600 text-sm">👑 1</span>
+                                <div class="w-9 h-9 rounded-full bg-amber-200/50 flex items-center justify-center font-bold text-amber-800 text-xs">غ</div>
+                                <div>
+                                    <h4 class="font-bold text-mainText text-xs">غيداء العشيوان</h4>
+                                    <span class="text-[10px] text-secondaryText">الهندسة البرمجية</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-extrabold text-primary">1,350 نقطة</span>
+                        </div>
+
+                        <div class="bg-white p-3.5 rounded-2xl border border-primary/10 flex items-center justify-between shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <span class="w-6 text-center font-bold text-secondaryText text-sm">2</span>
+                                <div class="w-9 h-9 rounded-full bg-lightPurple flex items-center justify-center font-bold text-primary text-xs">ر</div>
+                                <div>
+                                    <h4 class="font-bold text-mainText text-xs">رنا خالد</h4>
+                                    <span class="text-[10px] text-secondaryText">الهندسة الكهربائية</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-extrabold text-primary">1,180 نقطة</span>
+                        </div>
+
+                        <div class="bg-white p-3.5 rounded-2xl border border-primary/10 flex items-center justify-between shadow-sm">
+                            <div class="flex items-center gap-3">
+                                <span class="w-6 text-center font-bold text-secondaryText text-sm">3</span>
+                                <div class="w-9 h-9 rounded-full bg-lightPurple flex items-center justify-center font-bold text-primary text-xs">ل</div>
+                                <div>
+                                    <h4 class="font-bold text-mainText text-xs">لانا محمد</h4>
+                                    <span class="text-[10px] text-secondaryText">الهندسة المدنية</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-extrabold text-primary">1,100 نقطة</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-lightPurple/60 border border-primary/30 p-3.5 rounded-2xl flex items-center justify-between mb-5 shadow-sm">
+                        <div class="flex items-center gap-3">
+                            <span class="w-6 text-center font-bold text-primary text-xs">#1</span>
+                            <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">أ</div>
+                            <div>
+                                <h4 class="font-bold text-mainText text-xs">أنت الآن</h4>
+                                <span class="text-[10px] text-secondaryText">المرتبة الأولى</span>
+                            </div>
+                        </div>
+                        <span class="text-xs font-extrabold text-primary">1,350 نقطة</span>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-bold text-mainText mb-3">أعلى التخصصات</h3>
+                        <div class="bg-white p-4 rounded-2xl border border-primary/10 shadow-sm space-y-2.5 text-xs">
+                            <div class="flex justify-between font-medium">
+                                <span class="text-mainText">الهندسة المدنية</span>
+                                <span class="text-primary font-bold">32%</span>
+                            </div>
+                            <div class="flex justify-between font-medium">
+                                <span class="text-mainText">الهندسة الميكانيكية</span>
+                                <span class="text-primary font-bold">28%</span>
+                            </div>
+                            <div class="flex justify-between font-medium">
+                                <span class="text-mainText">الهندسة الكهربائية</span>
+                                <span class="text-primary font-bold">24%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="nav-container-7"></div>
+            </div>
+
+            <!-- ================= SCREEN 8: PROFILE ================= -->
+            <div id="screen-8" class="screen-content hidden flex-col justify-between min-h-full pb-20">
+                <div class="p-5 flex-1">
+                    <h2 class="text-xl font-bold text-mainText mb-4">حسابي</h2>
+
+                    <div class="bg-white rounded-2xl p-5 border border-primary/10 text-center shadow-sm mb-4">
+                        <div class="w-16 h-16 rounded-full bg-lightPurple border-2 border-primary mx-auto flex items-center justify-center text-primary font-bold text-xl mb-3 shadow-sm">
+                            غ
+                        </div>
+                        <h3 class="font-bold text-mainText text-base">غيداء العشيوان</h3>
+                        <p class="text-secondaryText text-xs mb-3">طالبة هندسة</p>
+                        
+                        <div class="grid grid-cols-3 gap-2 pt-3 border-t border-primary/10 text-center">
+                            <div>
+                                <span class="block font-bold text-mainText text-xs">12</span>
+                                <span class="text-[9px] text-secondaryText">تحدياً مكتملًا</span>
+                            </div>
+                            <div>
+                                <span class="block font-bold text-primary text-xs">1,350</span>
+                                <span class="text-[9px] text-secondaryText">نقطة</span>
+                            </div>
+                            <div>
+                                <span class="block font-bold text-mediumOrange text-xs">5</span>
+                                <span class="text-[9px] text-secondaryText">أسبوع متتالي</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-primary/10 shadow-sm overflow-hidden mb-4 text-xs font-semibold">
+                        <div onclick="switchScreen(6)" class="p-3.5 border-b border-primary/5 flex items-center justify-between cursor-pointer hover:bg-lightPurple/20 transition">
+                            <span class="text-mainText">إنجازاتي</span>
+                            <span class="text-secondaryText">←</span>
+                        </div>
+                        <div class="p-3.5 border-b border-primary/5 flex items-center justify-between cursor-pointer hover:bg-lightPurple/20 transition">
+                            <span class="text-mainText">مهاراتي</span>
+                            <span class="text-secondaryText">←</span>
+                        </div>
+                        <div class="p-3.5 border-b border-primary/5 flex items-center justify-between cursor-pointer hover:bg-lightPurple/20 transition">
+                            <span class="text-mainText">الإعدادات</span>
+                            <span class="text-secondaryText">←</span>
+                        </div>
+                        <div class="p-3.5 border-b border-primary/5 flex items-center justify-between cursor-pointer hover:bg-lightPurple/20 transition">
+                            <span class="text-mainText">المساعدة والدعم</span>
+                            <span class="text-secondaryText">←</span>
+                        </div>
+                        <div class="p-3.5 flex items-center justify-between cursor-pointer hover:bg-lightPurple/20 transition">
+                            <span class="text-mainText">عن التطبيق</span>
+                            <span class="text-secondaryText">←</span>
+                        </div>
+                    </div>
+
+                    <button onclick="switchScreen(1)" class="w-full py-3 bg-hardRed/10 text-hardRed hover:bg-hardRed/20 font-bold rounded-xl text-xs transition">
+                        تسجيل الخروج
+                    </button>
+                </div>
+                <div id="nav-container-8"></div>
+            </div>
+
+        </div>
+
+        <!-- iPhone Home Indicator Bar -->
+        <div class="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white/40 rounded-full z-50 pointer-events-none"></div>
+    </div>
+
+    <script>
+        function switchScreen(screenNum) {
+            const screens = document.querySelectorAll('.screen-content');
+            screens.forEach(screen => {
+                screen.classList.add('hidden');
+                screen.classList.remove('flex');
+            });
+
+            const target = document.getElementById('screen-' + screenNum);
+            if (target) {
+                target.classList.remove('hidden');
+                target.classList.add('flex');
+                document.getElementById('app-container').scrollTop = 0;
+            }
+
+            for (let i = 1; i <= 8; i++) {
+                const btn = document.getElementById('btn-' + i);
+                if (btn) {
+                    if (i === screenNum) {
+                        btn.classList.remove('bg-[#2d2354]', 'text-secondaryText');
+                        btn.classList.add('bg-primary', 'text-white');
+                    } else {
+                        btn.classList.remove('bg-primary', 'text-white');
+                        btn.classList.add('bg-[#2d2354]', 'text-secondaryText');
+                    }
+                }
+            }
+        }
+
+        function renderNavBars() {
+            for (let i = 2; i <= 8; i++) {
+                const container = document.getElementById('nav-container-' + i);
+                if (container) {
+                    const isHome = i === 2 ? 'text-primary font-bold' : 'text-secondaryText';
+                    const isChallenges = (i === 3 || i === 4 || i === 5) ? 'text-primary font-bold' : 'text-secondaryText';
+                    const isProgress = i === 6 ? 'text-primary font-bold' : 'text-secondaryText';
+                    const isProfile = (i === 8 || i === 7) ? 'text-primary font-bold' : 'text-secondaryText';
+
+                    container.innerHTML = `
+                        <div class="absolute bottom-0 left-0 right-0 h-16 bg-white border-t border-primary/10 px-6 flex justify-between items-center z-40 shadow-lg">
+                            <button onclick="switchScreen(2)" class="flex flex-col items-center ${isHome} transition">
+                                <span class="text-base">🏠</span>
+                                <span class="text-[10px] mt-0.5">الرئيسية</span>
+                            </button>
+                            <button onclick="switchScreen(3)" class="flex flex-col items-center ${isChallenges} transition">
+                                <span class="text-base">🎯</span>
+                                <span class="text-[10px] mt-0.5">التحديات</span>
+                            </button>
+                            <button onclick="switchScreen(6)" class="flex flex-col items-center ${isProgress} transition">
+                                <span class="text-base">📊</span>
+                                <span class="text-[10px] mt-0.5">إنجازاتي</span>
+                            </button>
+                            <button onclick="switchScreen(8)" class="flex flex-col items-center ${isProfile} transition">
+                                <span class="text-base">👤</span>
+                                <span class="text-[10px] mt-0.5">حسابي</span>
+                            </button>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        renderNavBars();
+        switchScreen(1);
+    </script>
+</body>
+</html>
